@@ -1,0 +1,11 @@
+apiVersion: v2
+name: devpro-samples-argocd
+description: Helm chart sample for ArgoCD
+type: application
+version: 0.1.0
+appVersion: 1.0.0
+dependencies:
+  # https://github.com/argoproj/argo-helm/tree/master/charts/argo-cd
+  - name: argo-cd
+    version: 4.5.3
+    repository: https://argoproj.github.io/argo-helm

@@ -1,0 +1,12 @@
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+argo-cd:
+  dex:
+    enabled: false
+  server:
+    extraArgs:
+      - --insecure
+    # configs:
+    #   repositories: |
+    #     - type: helm
+    #       name: argo-cd
+    #       url: https://argoproj.github.io/argo-helm
