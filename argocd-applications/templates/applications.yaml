@@ -1,26 +1,5 @@
 ---
 # See: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
-# apiVersion: argoproj.io/v1alpha1
-# kind: Application
-# metadata:
-#   name: argocd-applications
-#   namespace: cdtools
-# spec:
-#   project: default
-#   source:
-#     repoURL: https://github.com/devpro/gitops-samples.git
-#     path: argocd-applications
-#     targetRevision: feature/argocd-setup
-#   destination:
-#     server: https://kubernetes.default.svc
-#     namespace: cdtools
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-#     syncOptions:
-#       - CreateNamespace=true
----
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -41,5 +20,24 @@ spec:
     automated:
       prune: true
       selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sealedsecrets
+  namespace: cdtools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/sealed-secrets
+    targetRevision: feature/argocd-setup
+    helm:
+      releaseName: devpro-samples-sealedsecrets
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
