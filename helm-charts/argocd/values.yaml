@@ -18,6 +18,8 @@ argo-cd:
           repoURL: https://github.com/devpro/gitops-samples.git
           path: argocd-applications
           targetRevision: feature/argocd-setup
+          helm:
+            releaseName: argocd-applications
         destination:
           server: https://kubernetes.default.svc
           namespace: cdtools

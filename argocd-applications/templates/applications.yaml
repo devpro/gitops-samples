@@ -20,3 +20,26 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: cdtools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/argocd
+    targetRevision: feature/argocd-setup
+    helm:
+      releaseName: devpro-samples-argocd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cdtools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
