@@ -7,6 +7,9 @@
 ```bash
 # generates locally the manifest
 helm template . --name-template=devpro-samples-sealedsecrets --include-crds > temp.yaml
+
+# applies the manifest
+kubectl apply -f temp.yaml -n kube-system
 ```
 
 ## How to update the version
