@@ -10,3 +10,20 @@ argo-cd:
     #     - type: helm
     #       name: argo-cd
     #       url: https://argoproj.github.io/argo-helm
+    additionalApplications:
+      - name: argocd-applications
+        namespace: cdtools
+        project: default
+        source:
+          repoURL: https://github.com/devpro/gitops-samples.git
+          path: argocd-applications
+          targetRevision: feature/argocd-setup
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: cdtools
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true
+          syncOptions:
+            - CreateNamespace=true

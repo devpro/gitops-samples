@@ -3,19 +3,24 @@
 ## How to apply manually
 
 ```bash
-# generates locally the manifest
-helm template . --name-template=devpro-samples-argocd --include-crds -n cdtools > temp.yaml
+# creates namespace
+ns_tools=cdtools
+kubectl create ns $ns_tools
 
-# applies the manifest and wait for the deployments to be available
-kubectl create ns cdtools
-kubectl apply -f temp.yaml -n cdtools
-kubectl get deploy -n cdtools
+# generates locally the manifest
+helm template . --name-template=devpro-samples-argocd --include-crds -n $ns_tools > temp.yaml
+
+# applies the manifest
+kubectl apply -f temp.yaml -n $ns_tools
+
+# checks when all deployments are available
+kubectl get deploy -n $ns_tools
 
 # retrieves admin password
-kubectl get secret argocd-initial-admin-secret -n cdtools -o jsonpath="{.data.password}" | base64 -d
+kubectl get secret argocd-initial-admin-secret -n $ns_tools -o jsonpath="{.data.password}" | base64 -d
 
 # opens a port forward to access the web UI on http://localhost:8080
-kubectl port-forward svc/devpro-samples-argocd-server 8080:443 -n cdtools
+kubectl port-forward svc/devpro-samples-argocd-server 8080:443 -n $ns_tools
 ```
 
 ## How to update the version

@@ -1,0 +1,22 @@
+---
+# See: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-applications
+  namespace: cdtools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: argocd-applications
+    targetRevision: feature/argocd-setup
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cdtools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
