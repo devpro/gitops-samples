@@ -11,5 +11,5 @@ spec:
          containers:
            - name: busybox
              image: busybox:latest
-         command: ["/bin/sh", "-c", {{ .Values.command }}]
+             command: ["/bin/sh", "-c", {{ .Values.command }}]
          restartPolicy: OnFailure
