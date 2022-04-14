@@ -1,0 +1,123 @@
+---
+# See: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: cdtools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/argocd
+    targetRevision: main
+    helm:
+      releaseName: devpro-samples-argocd
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cdtools
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sealedsecrets
+  namespace: cdtools
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/sealed-secrets
+    targetRevision: main
+    helm:
+      releaseName: devpro-samples-sealedsecrets
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-staging
+  namespace: cdtools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/wordpress
+    targetRevision: main
+    helm:
+      releaseName: devpro-samples-wordpress
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fun-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-production
+  namespace: cdtools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/wordpress
+    targetRevision: main
+    helm:
+      releaseName: devpro-samples-wordpress
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fun-production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: busycron-staging
+  namespace: cdtools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/busycron
+    targetRevision: main
+    helm:
+      releaseName: devpro-samples-busycron
+      parameters:
+      - name: command
+        value: "echo Hellow everyone!"
+      - name: schedule
+        value: "*/2 * * * *"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fun-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

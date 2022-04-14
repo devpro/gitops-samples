@@ -1,0 +1,5 @@
+# downloaded helm charts
+**/charts/*.tgz
+
+# temporary files
+temp.yaml

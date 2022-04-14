@@ -1,0 +1,4 @@
+# https://github.com/bitnami-labs/sealed-secrets/blob/main/helm/sealed-secrets/values.yaml
+sealed-secrets:
+  fullnameOverride: sealed-secrets-controller
+  namespace: kube-system

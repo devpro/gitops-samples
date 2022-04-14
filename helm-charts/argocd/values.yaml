@@ -1,0 +1,24 @@
+# https://github.com/argoproj/argo-helm/blob/master/charts/argo-cd/values.yaml
+argo-cd:
+  dex:
+    enabled: false
+  server:
+    extraArgs:
+      - --insecure
+    additionalApplications:
+      - name: argocd-applications
+        namespace: cdtools
+        project: default
+        source:
+          repoURL: https://github.com/devpro/gitops-samples.git
+          path: helm-charts/argocd-applications
+          targetRevision: main
+          helm:
+            releaseName: argocd-applications
+        destination:
+          server: https://kubernetes.default.svc
+          namespace: cdtools
+        syncPolicy:
+          automated:
+            prune: true
+            selfHeal: true

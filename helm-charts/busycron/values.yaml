@@ -1,0 +1,4 @@
+name: "busycron"
+command: "echo Hello World"
+# https://cron.help
+schedule: "*/5 * * * *"
