@@ -13,4 +13,6 @@ The repository provides samples to discover and practice GitOps. Feel free to co
 
 * [ArgoCD](/helm-charts/argocd/README.md)
 * [ArgoCD Applications](/helm-charts/argocd-applications/README.md)
+* [BusyBox Cron](./helm-charts/busycron/README.md)
 * [Sealed-Secrets](/helm-charts/sealed-secrets/README.md)
+* [WordPress](./helm-charts/wordpress/README.md)
