@@ -91,3 +91,33 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: busycron-staging
+  namespace: cdtools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/busycron
+    targetRevision: feature/argocd-setup
+    helm:
+      releaseName: devpro-samples-busycron
+      parameters:
+      - name: command
+        value: "echo Hellow everyone!"
+      - name: schedule
+        value: "*/2 * * * *"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fun-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
