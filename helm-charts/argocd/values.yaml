@@ -12,7 +12,7 @@ argo-cd:
         source:
           repoURL: https://github.com/devpro/gitops-samples.git
           path: helm-charts/argocd-applications
-          targetRevision: feature/argocd-setup
+          targetRevision: main
           helm:
             releaseName: argocd-applications
         destination:

@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/devpro/gitops-samples.git
     path: helm-charts/argocd
-    targetRevision: feature/argocd-setup
+    targetRevision: main
     helm:
       releaseName: devpro-samples-argocd
   destination:
@@ -31,7 +31,7 @@ spec:
   source:
     repoURL: https://github.com/devpro/gitops-samples.git
     path: helm-charts/sealed-secrets
-    targetRevision: feature/argocd-setup
+    targetRevision: main
     helm:
       releaseName: devpro-samples-sealedsecrets
   destination:
@@ -54,7 +54,7 @@ spec:
   source:
     repoURL: https://github.com/devpro/gitops-samples.git
     path: helm-charts/wordpress
-    targetRevision: feature/argocd-setup
+    targetRevision: main
     helm:
       releaseName: devpro-samples-wordpress
   destination:
@@ -79,7 +79,7 @@ spec:
   source:
     repoURL: https://github.com/devpro/gitops-samples.git
     path: helm-charts/wordpress
-    targetRevision: feature/argocd-setup
+    targetRevision: main
     helm:
       releaseName: devpro-samples-wordpress
   destination:
@@ -104,7 +104,7 @@ spec:
   source:
     repoURL: https://github.com/devpro/gitops-samples.git
     path: helm-charts/busycron
-    targetRevision: feature/argocd-setup
+    targetRevision: main
     helm:
       releaseName: devpro-samples-busycron
       parameters:
