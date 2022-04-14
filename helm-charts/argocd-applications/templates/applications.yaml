@@ -41,3 +41,28 @@ spec:
     automated:
       prune: true
       selfHeal: true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-staging
+  namespace: cdtools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/devpro/gitops-samples.git
+    path: helm-charts/wordpress
+    targetRevision: feature/argocd-setup
+    helm:
+      releaseName: devpro-samples-wordpress
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: fun-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
